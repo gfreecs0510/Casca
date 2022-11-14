@@ -1,0 +1,19 @@
+{
+  "name": "casca",
+  "version": "1.0.0",
+  "description": "a Looker inspired project that generates SQL code and dashboards. json base configurations",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gfreecs0510/Casca.git"
+  },
+  "author": "Al Lara (gfreecs0510@gmail.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gfreecs0510/Casca/issues"
+  },
+  "homepage": "https://github.com/gfreecs0510/Casca#readme"
+}
