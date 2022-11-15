@@ -26,6 +26,24 @@ Front end
 3. Render the dashboard based on the backend config
 4. send commands from dashboard to backend using rest api.
 
+
+
+Here is a simple flow chart:
+
+```mermaid
+graph TD;
+    CascaBackend-->Setup connections, users, views, dashboards, routes;
+    Setup connections, users, views, dashboards, routes-->routes listens to API requests;
+    CascaFrontend-->Connect on backend via authenticate();
+    Connect on backend via authenticate()-->Render dashboard on iframe;
+    Render dashboard on iframe-->User selects fields and filters;
+    User selects fields and filters-->Send commands via API;
+    Send commands via API-->routes listens to API requests;
+    routes listens to API requests-->routes interpret the request, generates SQL query, executes it;
+    routes interpret the request, generates SQL query, executes it-->returns result on the front end;
+    routes interpret the request, generates SQL query, executes it-->Render dashboard on iframe;
+```
+
 # The Basic setup and Terminologies
 
 Views
@@ -33,6 +51,7 @@ Views
 Views in Casca are the config file to generate the dashboard.
 You configure a view by declaring what tables it represents on your database and declaring the fields inside it.
 
+```
 {
     "table_name" : "records", 
     "view_name" : "Movie Records",
@@ -57,22 +76,26 @@ You configure a view by declaring what tables it represents on your database and
         }
     ]
 }
+```
 
 Fields
 
 Fields are the dashboard columns. Like SQL queries you can also make your own fields on the `value` property.
 
+```
 {
     "name" : "id",
     "visible" : false,
     "type" : "integer",
     "value" : "${TABLE}.id",
 }
+```
 
 Dashboard
 
 Dashboard is the UI part that consist of single or multiple views. it has a main view, subviews can be added like how you join tables on SQL queries.
 
+```
 {
     "includes" : [
         "views/*.json"
@@ -88,17 +111,20 @@ Dashboard is the UI part that consist of single or multiple views. it has a main
         }
     ]
 }
+```
 
 Once configs are done, the ideal code on the backend will look like this:
 
+```
 import { createInstance} from 'casca' //or require, i dont know, lets see
 
 const casca = createInstance("connection_name") //connect_name setup on the strapi backend
 casca.init("dashboard_config.json") //will initiate the dashboard
-
+```
 
 for the front end code, it will look like this:
 
+```
 import { authenticate } from 'casca'
 
 const config = {
@@ -118,6 +144,7 @@ if(!casca) {
     }
     </iframe>
 }
+```
 
 These are the basic concepts.
 Ideally, developers using Casca only needs to know how to :
