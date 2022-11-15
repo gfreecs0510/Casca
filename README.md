@@ -50,6 +50,7 @@ Here is a simple flow chart:
       CascaFrontend->>Routes: sends the commands to routes
       
       Routes->>CascaBackend: routes receives the command, backend generates SQL query, execute then returns the result
+      CascaBackend->>Routes: sends back the result to routes
       Routes->>CascaFrontend: routes returns the result, renders the dashboard with results on the command
 ```
 
