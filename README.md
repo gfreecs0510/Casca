@@ -31,17 +31,26 @@ Front end
 Here is a simple flow chart:
 
 ```mermaid
-graph TD;
-    CascaBackend-->Setup connections, users, views, dashboards, routes;
-    Setup connections, users, views, dashboards, routes-->routes listens to API requests;
-    CascaFrontend-->Connect on backend via authenticate();
-    Connect on backend via authenticate()-->Render dashboard on iframe;
-    Render dashboard on iframe-->User selects fields and filters;
-    User selects fields and filters-->Send commands via API;
-    Send commands via API-->routes listens to API requests;
-    routes listens to API requests-->routes interpret the request, generates SQL query, executes it;
-    routes interpret the request, generates SQL query, executes it-->returns result on the front end;
-    routes interpret the request, generates SQL query, executes it-->Render dashboard on iframe;
+    sequenceDiagram;
+      participant CascaBackend
+      participant Routes
+      participant CascaFrontend
+      participant User
+      
+      Note right of CascaBackend: Setup connections, users, views, dashboards, routes      
+      CascaBackend->>Routes: creates routes, routes listens to API requests
+      
+      
+      
+      CascaFrontend->>Routes: Connect on backend via authenticate()
+      Note right of CascaFrontend: Render dashboard on iframe
+      
+      
+      User->>CascaFrontend: User selects fields and filters, send commands
+      CascaFrontend->>Routes: sends the commands to routes
+      
+      Routes->>CascaBackend: routes receives the command, backend generates SQL query, execute then returns the result
+      Routes->>CascaFrontend: routes returns the result, renders the dashboard with results on the command
 ```
 
 # The Basic setup and Terminologies
