@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "connections",
+  "info": {
+    "name": "Connections"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "host": {
+      "type": "string"
+    },
+    "user_name": {
+      "type": "string"
+    },
+    "password": {
+      "type": "password"
+    },
+    "database_schema": {
+      "type": "string"
+    },
+    "derived_schema": {
+      "type": "string"
+    }
+  }
+}
